@@ -9,6 +9,12 @@ public class SpinObject : MonoBehaviour
     private Image _circle;
     private Text _text;
 
+    public string Text
+    {
+        get => _text.text;
+        set => _text.text = value;
+    }
+
     public void Selected()
     {
         _circle.color = Color.white;
@@ -17,11 +23,6 @@ public class SpinObject : MonoBehaviour
     public void UnSelected()
     {
         _circle.color = Color.gray;
-    }
-
-    public void SetText(string text)
-    {
-        _text.text = text;
     }
 
     public void InitWithFillAmountAndAngle(float fillAmount, float angle)

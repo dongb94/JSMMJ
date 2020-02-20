@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class SelectManager : MonoBehaviour
+public class MainSceneManager : MonoBehaviour
 {
-    private static SelectManager _instance;
+    private static MainSceneManager _instance;
 
     private bool _isSpin;
     
@@ -22,16 +22,18 @@ public class SelectManager : MonoBehaviour
     private Button _menuButton;
     private Button _selectButton;
 
+    private ResultPopUp _result;
+
     public readonly string[] DefaultMenu = {"라면", "덮밥", "국밥", "중식", "분식", "냉면", "돈까스", "햄버거"};
     
-    public static SelectManager Instance
+    public static MainSceneManager Instance
     {
         get
         {
             if (_instance == null)
             {
                 canvas = GameObject.Find("Canvas");
-                canvas.transform.Find("Circle/SpinObjects").gameObject.AddComponent<SelectManager>();
+                canvas.transform.Find("Circle/SpinObjects").gameObject.AddComponent<MainSceneManager>();
             }
             return _instance;
         }
@@ -80,7 +82,7 @@ public class SelectManager : MonoBehaviour
 
     public void SetMenuItem(int index, string text)
     {
-        _menuList[index].SetText(text);
+        _menuList[index].Text = text;
     }
     
     private void TossNextMenu()
@@ -93,12 +95,15 @@ public class SelectManager : MonoBehaviour
     private IEnumerator Spin(int count)
     {
         TossNextMenu();
+        SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
         yield return new WaitForSeconds(0.05f);
         count--;
         if (count > 0) StartCoroutine(Spin(count));
         else
         {
             _isSpin = false;
+            _result.PopUp(_menuList[_currentMenu].Text);
+            SoundManager.PlaySound(SoundManager.SoundList.Result);
         }
     }
 
@@ -118,6 +123,7 @@ public class SelectManager : MonoBehaviour
     {
         if(_isSpin) return;
         MenuListManager.Instance.SetView(true);
+        SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
     }
 
     #endregion
@@ -130,6 +136,7 @@ public class SelectManager : MonoBehaviour
         _menuButton.onClick.AddListener(OnMenuButtonClick);
         _selectButton = canvas.transform.Find("SelectButton").GetComponent<Button>();
         _selectButton.onClick.AddListener(OnSelectButtonClick);
+        _result = canvas.transform.Find("Result").gameObject.AddComponent<ResultPopUp>();
         _menuList = new List<SpinObject>();
         _objectPool = new Stack<SpinObject>();
         _nOfMenu = 0;

@@ -120,13 +120,13 @@ public class MenuListManager :MonoBehaviour
 
     private void UpdateSpinObject()
     {
-        SelectManager.Instance.NOfMenu = _menuItems.Count;
+        MainSceneManager.Instance.NOfMenu = _menuItems.Count;
         for (var i = 0; i < _menuItems.Count; i++)
         {
             if(_menuItems[i].Text == "") 
-                SelectManager.Instance.SetMenuItem(i, "꽝");
+                MainSceneManager.Instance.SetMenuItem(i, "꽝");
             else
-                SelectManager.Instance.SetMenuItem(i, _menuItems[i].Text);
+                MainSceneManager.Instance.SetMenuItem(i, _menuItems[i].Text);
         }
     }
 
@@ -136,19 +136,21 @@ public class MenuListManager :MonoBehaviour
     {
         UpdateSpinObject();
         FileManagement.SaveFile(_menuItems);
-
+        SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
         gameObject.SetActive(false);
     }
 
     private void OnClickAddButton()
     {
         AddMenuItem();
+        SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
     }
 
     private void OnClickSaveButton()
     {
         SetView(false);
         SaveUIManager.Instance.SetView(true);
+        SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
     }
     
     #endregion
@@ -170,7 +172,7 @@ public class MenuListManager :MonoBehaviour
         _menuItems = new List<MenuListItem>();
         _menuItemPool = new Stack<MenuListItem>();
         
-        var menus = FileManagement.LoadFile()??SelectManager.Instance.DefaultMenu;
+        var menus = FileManagement.LoadFile()??MainSceneManager.Instance.DefaultMenu;
         foreach (var menu in menus)
         {
             AddMenuItem(menu);

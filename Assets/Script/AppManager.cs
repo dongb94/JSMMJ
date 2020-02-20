@@ -8,6 +8,7 @@ public class AppManager : MonoBehaviour
         Screen.SetResolution(480,800,true);
         MenuListManager.Instance.SetView(false);
         SaveUIManager.Instance.SetView(false);
+        GameObject.Find("EventSystem").AddComponent<SoundManager>();
     }
     
     private void Update()

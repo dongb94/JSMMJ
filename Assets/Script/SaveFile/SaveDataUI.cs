@@ -24,11 +24,13 @@ public class SaveDataUI :MonoBehaviour
         MenuListManager.Instance.LoadSaveData(_text.text);
         MenuListManager.Instance.SetView(true);
         SaveUIManager.Instance.SetView(false);
+        SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
     }
 
     private void OnClickDeleteButton()
     {
         FileManagement.DeleteFile(_text.text);
         SaveUIManager.Instance.DeleteSaveDataUI(this);
+        SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
     }
 }

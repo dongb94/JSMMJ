@@ -27,5 +27,6 @@ public class MenuListItem : MonoBehaviour
     {
         _field.text = "";
         MenuListManager.Instance.DeleteMenuItem(this);
+        SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
     }
 }

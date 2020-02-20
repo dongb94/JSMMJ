@@ -100,12 +100,14 @@ public class SaveUIManager :MonoBehaviour
     {
         MenuListManager.Instance.SaveData(_saveNameField.text);
         ReloadSaveDataUI();
+        SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
     }
 
     private void OnClickCloseButton()
     {
         SetView(false);
         MenuListManager.Instance.SetView(true);
+        SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
     }
 
     private void Awake()
