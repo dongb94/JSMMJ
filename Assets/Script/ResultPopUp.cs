@@ -14,7 +14,11 @@ public class ResultPopUp : MonoBehaviour
     {
         _text = transform.Find("Image/Text").GetComponent<Text>();
         _image = transform.Find("Image").gameObject;
-        transform.GetComponent<Button>().onClick.AddListener(() => gameObject.SetActive(false));
+        transform.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            gameObject.SetActive(false);
+            GoogleAdMob.Instance.PlayInterstitialAd();
+        });
         gameObject.SetActive(false);
     }
 

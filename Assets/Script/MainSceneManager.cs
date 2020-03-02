@@ -96,7 +96,23 @@ public class MainSceneManager : MonoBehaviour
     {
         TossNextMenu();
         SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
-        yield return new WaitForSeconds(0.05f);
+        if (count < 4)
+        {
+            yield return new WaitForSeconds(0.8f);
+        }
+        else if (count < 10)
+        {
+            yield return new WaitForSeconds(0.2f);
+        }
+        else if (count < 20)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.05f);
+        }
+            
         count--;
         if (count > 0) StartCoroutine(Spin(count));
         else
@@ -115,7 +131,9 @@ public class MainSceneManager : MonoBehaviour
     {
         if (_isSpin) return;
         _isSpin = true;
-        var random = Random.Range(_nOfMenu * 5, _nOfMenu * 10);
+        var min = Math.Max(_nOfMenu * 5, 25);
+        var max = Math.Min(_nOfMenu * 10, 100);
+        var random = Random.Range(min, max); // min > max 여도 min과 max 사이에서 돌아감
         StartCoroutine(Spin(random));
     }
 
