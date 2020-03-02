@@ -21,9 +21,9 @@ public class SaveDataUI :MonoBehaviour
 
     private void OnClickLoadButton()
     {
-        MenuListManager.Instance.LoadSaveData(_text.text);
         MenuListManager.Instance.SetView(true);
         SaveUIManager.Instance.SetView(false);
+        MenuListManager.Instance.LoadSaveData(_text.text);
         SoundManager.PlaySound(SoundManager.SoundList.SlotMachine);
     }
 
