@@ -9,6 +9,7 @@ public class AppManager : MonoBehaviour
         MenuListManager.Instance.SetView(false);
         SaveUIManager.Instance.SetView(false);
         GameObject.Find("EventSystem").AddComponent<SoundManager>();
+        GoogleAdMob.Instance.PlayBannerAd();
     }
     
     private void Update()

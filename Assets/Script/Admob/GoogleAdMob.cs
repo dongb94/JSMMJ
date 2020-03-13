@@ -63,7 +63,7 @@ public class GoogleAdMob
     private GoogleAdMob()
     {
         ///// 서비스시 주석처리 //////
-        isTest = true;
+        //isTest = true;
         //isBannerPositionTest = true;
         ////////////////////////////
         
@@ -150,6 +150,7 @@ public class GoogleAdMob
 #if UNITY_EDITOR
             Debug.Log("Banner AD is not Loaded");
 #endif
+            _bannerView.LoadAd(request);
         };
         _bannerView.OnAdLoaded += (sender, args) =>
         {
